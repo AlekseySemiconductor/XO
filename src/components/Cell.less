@@ -1,0 +1,27 @@
+.table__cell {
+	display: -ms-inline-flexbox;
+	display: -webkit-inline-flex;
+	display: inline-flex;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	vertical-align: top;
+	width: 60px;
+	height: 60px;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background-color: #d6dbe0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	font-size: 25px;
+	&[data-type="user"]:before {
+		content: "X";
+	}
+	&[data-type="ai"]:before {
+		content: "O";
+	}
+}
