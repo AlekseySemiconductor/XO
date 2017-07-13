@@ -17,17 +17,29 @@ class Cell extends React.Component {
 		}
 
 		this.state = {
-			type: type
+			type: type,
+			win: props.win,
+			game: true
 		}
 	}
 
 	handleActive = () => {
-		if (this.state.type !== 'default') return;
+		if (this.state.type !== 'default' || this.state.game === false) return;
 
-		this.props.onAddActiveCell(this.props.id);
+		this.props.onAddUserCell(this.props.id);
 	}
 
 	componentWillReceiveProps = nextProps => {
+		if (nextProps.game === false) {
+			this.setState({
+				'game': false
+			});
+		}
+		if (nextProps.win) {
+			this.setState({
+				win: nextProps.win
+			});
+		}
 		if (nextProps.type !== this.state.type) {
 			this.setState({
 				type: nextProps.type
@@ -40,6 +52,7 @@ class Cell extends React.Component {
 			<div
 				className="table__cell default"
 				data-type={this.state.type}
+				data-win={this.state.win}
 				id={this.props.id}
 				onClick={this.handleActive}
 			></div>
@@ -52,10 +65,10 @@ export default connect(
 		reducer: state
 	}),
 	dispatch => ({
-		onAddActiveCell: (activeCell) => {
+		onAddUserCell: (userCell) => {
 			dispatch({
-				type: 'ADD_ACTIVECELL',
-				activeCell
+				type: 'ADD_USERCELL',
+				userCell
 			})
 		}
 	})
